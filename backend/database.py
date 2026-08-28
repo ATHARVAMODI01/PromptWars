@@ -4,7 +4,11 @@ from datetime import datetime
 import uuid
 import os
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "interview_panel.db")
+if os.environ.get("VERCEL"):
+    DB_PATH = "/tmp/interview_panel.db"
+else:
+    DB_PATH = os.path.join(os.path.dirname(__file__), "interview_panel.db")
+
 SQLALCHEMY_DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 engine = create_engine(
