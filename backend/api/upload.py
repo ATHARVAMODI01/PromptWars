@@ -3,11 +3,20 @@ from sqlalchemy.orm import Session
 from database import get_db, JobModel, CandidateModel, EvidenceModel
 from services.pdf_processor import PDFProcessor
 from services.profile_builder import ProfileBuilder
-from models.candidate import JobCreate, RequirementTier
-import json
+import html
 import uuid
 
 router = APIRouter(prefix="/api", tags=["Upload"])
+
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB limit
+ALLOWED_EXTENSIONS = {".pdf", ".txt", ".md", ".json"}
+
+def sanitize_input(text: str) -> str:
+    if not text:
+        return ""
+    # Strip dangerous HTML tags
+    cleaned = html.escape(text.strip())
+    return cleaned
 
 @router.post("/jobs")
 async def create_job(
@@ -16,12 +25,22 @@ async def create_job(
     file: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
-    text_content = description
+    safe_title = sanitize_input(title)
+    safe_description = sanitize_input(description)
+    text_content = safe_description
+
     if file:
+        ext = f".{file.filename.split('.')[-1].lower()}" if "." in file.filename else ""
+        if ext not in ALLOWED_EXTENSIONS:
+            raise HTTPException(status_code=400, detail=f"File extension {ext} not allowed.")
+        
         file_bytes = await file.read()
+        if len(file_bytes) > MAX_FILE_SIZE:
+            raise HTTPException(status_code=400, detail="File size exceeds maximum allowed 10MB limit.")
+
         extracted = PDFProcessor.extract_text_from_bytes(file_bytes, file.filename)
         if extracted:
-            text_content = extracted
+            text_content = sanitize_input(extracted)
 
     requirements = {
         "required_core": [
@@ -44,7 +63,7 @@ async def create_job(
 
     job = JobModel(
         job_id=str(uuid.uuid4()),
-        title=title,
+        title=safe_title,
         description=text_content,
         requirements=requirements
     )
@@ -60,19 +79,34 @@ async def create_candidate(
     transcript_file: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
+    safe_name = sanitize_input(name)
+    if not safe_name:
+        raise HTTPException(status_code=400, detail="Candidate name is required.")
+
     resume_text = ""
     transcript_text = ""
 
     if resume_file:
+        ext = f".{resume_file.filename.split('.')[-1].lower()}" if "." in resume_file.filename else ""
+        if ext not in ALLOWED_EXTENSIONS:
+            raise HTTPException(status_code=400, detail=f"Resume file extension {ext} not allowed.")
         r_bytes = await resume_file.read()
-        resume_text = PDFProcessor.extract_text_from_bytes(r_bytes, resume_file.filename)
+        if len(r_bytes) > MAX_FILE_SIZE:
+            raise HTTPException(status_code=400, detail="Resume size exceeds 10MB limit.")
+        resume_text = sanitize_input(PDFProcessor.extract_text_from_bytes(r_bytes, resume_file.filename))
+
     if transcript_file:
+        ext = f".{transcript_file.filename.split('.')[-1].lower()}" if "." in transcript_file.filename else ""
+        if ext not in ALLOWED_EXTENSIONS:
+            raise HTTPException(status_code=400, detail=f"Transcript file extension {ext} not allowed.")
         t_bytes = await transcript_file.read()
-        transcript_text = PDFProcessor.extract_text_from_bytes(t_bytes, transcript_file.filename)
+        if len(t_bytes) > MAX_FILE_SIZE:
+            raise HTTPException(status_code=400, detail="Transcript size exceeds 10MB limit.")
+        transcript_text = sanitize_input(PDFProcessor.extract_text_from_bytes(t_bytes, transcript_file.filename))
 
     candidate = CandidateModel(
         candidate_id=str(uuid.uuid4()),
-        name=name,
+        name=safe_name,
         resume_text=resume_text,
         transcript_text=transcript_text
     )
@@ -87,7 +121,6 @@ async def load_demo_candidates(db: Session = Depends(get_db)):
     Seeds the database with Candidate A (Rohan Malhotra) and Candidate B (Ananya Iyer)
     for instant testing and demonstration.
     """
-    # Seeding Job
     job = db.query(JobModel).first()
     if not job:
         job = JobModel(
@@ -104,7 +137,6 @@ async def load_demo_candidates(db: Session = Depends(get_db)):
         )
         db.add(job)
 
-    # Seeding Candidate A
     c_a = db.query(CandidateModel).filter(CandidateModel.name.contains("Rohan")).first()
     if not c_a:
         prof_a = ProfileBuilder.build_profile("Rohan Malhotra", "resume text", "transcript text")
@@ -116,7 +148,6 @@ async def load_demo_candidates(db: Session = Depends(get_db)):
             profile=prof_a.model_dump()
         )
         db.add(c_a)
-        # Store evidence
         for item in prof_a.evidence:
             ev = EvidenceModel(
                 evidence_id=item.evidence_id,
@@ -129,7 +160,6 @@ async def load_demo_candidates(db: Session = Depends(get_db)):
             )
             db.merge(ev)
 
-    # Seeding Candidate B
     c_b = db.query(CandidateModel).filter(CandidateModel.name.contains("Ananya")).first()
     if not c_b:
         prof_b = ProfileBuilder.build_profile("Ananya Iyer", "resume text", "transcript text")
@@ -141,7 +171,6 @@ async def load_demo_candidates(db: Session = Depends(get_db)):
             profile=prof_b.model_dump()
         )
         db.add(c_b)
-        # Store evidence
         for item in prof_b.evidence:
             ev = EvidenceModel(
                 evidence_id=item.evidence_id,
