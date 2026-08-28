@@ -1,0 +1,72 @@
+/* ==========================================================================
+   YouTube Shorts Blocker - Content Stylesheet
+   ========================================================================== */
+
+/* 1. Sidebar Links (Navigation) */
+html.yt-hide-sidebar-shorts ytd-guide-entry-renderer:has(a[href*="/shorts"]),
+html.yt-hide-sidebar-shorts ytd-mini-guide-entry-renderer:has(a[href*="/shorts"]),
+html.yt-hide-sidebar-shorts ytd-guide-downloads-entry-renderer:has(a[href*="/shorts"]),
+html.yt-hide-sidebar-shorts a[href*="/shorts"]#endpoint {
+  display: none !important;
+}
+
+/* 2. Home Feed Shelves */
+html.yt-hide-home-shorts ytd-rich-shelf-renderer[is-shorts],
+html.yt-hide-home-shorts ytd-rich-shelf-renderer:has(span[id="title"]:has(yt-icon[type="shorts"])),
+html.yt-hide-home-shorts ytd-rich-shelf-renderer:has(a[href*="/shorts"]),
+/* Hide entire rich-section-renderer wrapper to avoid leaving empty spaces */
+html.yt-hide-home-shorts ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html.yt-hide-home-shorts ytd-rich-section-renderer:has(span[id="title"]:has(yt-icon[type="shorts"])),
+html.yt-hide-home-shorts ytd-rich-section-renderer:has(a[href*="/shorts"]) {
+  display: none !important;
+}
+
+/* 3. Search & Subscription Shelves */
+html.yt-hide-search-shorts ytd-reel-shelf-renderer,
+html.yt-hide-search-shorts ytd-shelf-renderer:has(span[id="title"]:has(yt-icon[type="shorts"])),
+html.yt-hide-search-shorts ytd-shelf-renderer:has(a[href*="/shorts"]) {
+  display: none !important;
+}
+
+/* 4. Individual Grid/List Video Items in Subscriptions/Channel/Related feeds */
+html.yt-hide-grid-shorts ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+html.yt-hide-grid-shorts ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+html.yt-hide-grid-shorts ytd-video-renderer:has(a[href*="/shorts/"]),
+html.yt-hide-grid-shorts ytd-compact-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* 5. Clean up spacings left by hidden home shelf items */
+html.yt-hide-home-shorts ytd-rich-grid-row:has(> #contents > ytd-rich-shelf-renderer[is-shorts]) {
+  display: none !important;
+}
+
+/* 6. Display and Banner Ads */
+html.yt-block-display-ads #player-ads,
+html.yt-block-display-ads ytd-display-ad-renderer,
+html.yt-block-display-ads ytd-ad-slot-renderer,
+html.yt-block-display-ads #masthead-ad,
+html.yt-block-display-ads ytd-statement-banner-renderer,
+html.yt-block-display-ads ytd-in-feed-ad-layout-renderer,
+html.yt-block-display-ads ytd-brand-video-shelf-renderer,
+html.yt-block-display-ads ytd-banner-promo-renderer,
+html.yt-block-display-ads ytd-promoted-sparkles-web-renderer,
+html.yt-block-display-ads ytd-promoted-video-renderer,
+html.yt-block-display-ads ytd-compact-promoted-video-renderer,
+html.yt-block-display-ads .ytp-ad-overlay-container,
+html.yt-block-display-ads .ytp-ad-image-overlay,
+html.yt-block-display-ads .ytp-ad-text-overlay,
+html.yt-block-display-ads ytd-companion-card-renderer,
+/* Hide entire grid item cells wrapper to prevent empty spaces in the feed */
+html.yt-block-display-ads ytd-rich-item-renderer:has(ytd-ad-slot-renderer),
+html.yt-block-display-ads ytd-rich-item-renderer:has(ytd-display-ad-renderer),
+html.yt-block-display-ads ytd-rich-item-renderer:has(.ytd-carousel-ad-renderer),
+html.yt-block-display-ads ytd-rich-item-renderer:has(ytd-companion-card-renderer),
+/* Hide entire full-width section wrappers for banners to prevent large vertical empty spaces */
+html.yt-block-display-ads ytd-rich-section-renderer:has(ytd-statement-banner-renderer),
+html.yt-block-display-ads ytd-rich-section-renderer:has(ytd-in-feed-ad-layout-renderer),
+html.yt-block-display-ads ytd-rich-section-renderer:has(ytd-brand-video-shelf-renderer),
+html.yt-block-display-ads ytd-rich-section-renderer:has(ytd-banner-promo-renderer),
+html.yt-block-display-ads ytd-rich-section-renderer:has(ytd-ad-slot-renderer) {
+  display: none !important;
+}

@@ -1,0 +1,16 @@
+JOB TITLE: AI Engineer — Agentic Systems (Freight Operations)
+
+ROLE OVERVIEW:
+We are looking for a Senior AI & Microservices Engineer to lead the architecture of our next-generation multi-agent freight logistics dispatch platform. You will build and optimize production planner/executor/reviewer agent loops, low-latency FastAPI microservices, and RAG vector search pipelines.
+
+MANDATORY CORE REQUIREMENTS:
+1. Python backend microservices depth (FastAPI, Asyncio, Pydantic, SQLAlchemy).
+2. Production multi-agent orchestration experience (planner/executor/reviewer patterns, LangGraph, CrewAI, or AutoGen).
+3. Hands-on RAG & vector search implementation (MongoDB vector search, Chroma, Pinecone, or pgvector).
+4. Production ownership & reliability engineering (retry mechanisms, fallback routing, cost optimization).
+5. Basic React frontend capabilities for developer monitoring dashboards.
+
+NICE-TO-HAVE EXTENSIONS:
+1. Logistics & freight domain knowledge (Bill of Lading, Manifests, Customs OCR).
+2. OCR document extraction experience (PyMuPDF, pdfplumber, Tesseract).
+3. Automated prompt evaluation test suites & regression benchmarking.

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Agent AI Interview Panel Simulator</title>
+  <meta name="description" content="Evidence-first multi-agent hiring evaluation system featuring independent evaluation, structured debate, opinion revision, and 10-step decision engine.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">AI</div>
+      <div>
+        <div class="logo-text">Interview Panel Simulator</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Multi-Agent Decision Support System</div>
+      </div>
+    </div>
+
+    <nav class="nav-tabs">
+      <button class="nav-btn active" onclick="switchTab('screen-landing')">Overview</button>
+      <button class="nav-btn" onclick="switchTab('screen-upload')">Workspace</button>
+      <button class="nav-btn" onclick="switchTab('screen-overview')">Candidate Profile</button>
+      <button class="nav-btn" onclick="switchTab('screen-agents')">Independent Agents</button>
+      <button class="nav-btn" onclick="switchTab('screen-debate')">Debate Room</button>
+      <button class="nav-btn" onclick="switchTab('screen-revisions')">Opinion Changes</button>
+      <button class="nav-btn" onclick="switchTab('screen-decision')">Final Decision</button>
+      <button class="nav-btn" onclick="switchTab('screen-compare')">Compare A vs B</button>
+    </nav>
+
+    <div style="display: flex; gap: 0.5rem; align-items: center;">
+      <select id="candidate-selector" onchange="onCandidateSelectChange()" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); color: #fff; padding: 0.4rem 0.8rem; border-radius: 8px; font-family: inherit;">
+        <option value="cand-demo-001">Candidate A — Rohan Malhotra</option>
+        <option value="cand-demo-002">Candidate B — Ananya Iyer</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- SCREEN 1: LANDING PAGE -->
+  <div id="screen-landing" class="screen active">
+    <div style="text-align: center; margin: 3rem 0;">
+      <span class="badge badge-hire" style="margin-bottom: 1rem;">Evidence-First Multi-Agent Architecture</span>
+      <h1 style="font-size: 2.75rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Simulate a Real Technical Hiring Panel
+      </h1>
+      <p style="color: var(--text-muted); max-width: 750px; margin: 0 auto 2rem auto; font-size: 1.1rem;">
+        Four specialized AI agent personas evaluate candidates independently, challenge each other in a 4-round structured debate, record explicit opinion revisions, and produce a 10-step evidence-based recommendation.
+      </p>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem;">
+        <button class="btn-primary" onclick="loadDemoDataAndEvaluate()">
+          <span>⚡ Load Reference Demo (Candidate A & B)</span>
+        </button>
+        <button class="btn-secondary" onclick="switchTab('screen-upload')">
+          <span>📁 Upload Custom Resume / Transcript</span>
+        </button>
+      </div>
+    </div>
+
+    <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">The Four Panel Personas</h2>
+    <div class="agent-grid">
+      <div class="glass-panel agent-card tech">
+        <div>
+          <span class="badge badge-tech" style="margin-bottom: 0.75rem;">Technical Agent</span>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Technical Depth & Architecture</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted);">Evaluates Python microservices, multi-agent frameworks, RAG vector search, and production reliability.</p>
+        </div>
+      </div>
+      <div class="glass-panel agent-card hr">
+        <div>
+          <span class="badge badge-hr" style="margin-bottom: 0.75rem;">HR & Culture Agent</span>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Integrity & Behavioral Fit</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted);">Evaluates honesty, ownership transparency, conflict handling, and engineering accountability.</p>
+        </div>
+      </div>
+      <div class="glass-panel agent-card hm">
+        <div>
+          <span class="badge badge-hm" style="margin-bottom: 0.75rem;">Hiring Manager Agent</span>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Role Fit & Trainability</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted);">Evaluates practical hiring risk, ramp-up time, core requirement match vs nice-to-have trainability.</p>
+        </div>
+      </div>
+      <div class="glass-panel agent-card skeptic">
+        <div>
+          <span class="badge badge-skeptic" style="margin-bottom: 0.75rem;">Skeptic Agent</span>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Adversarial Claim Verification</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted);">Interrogates unverified numbers, resume claim inflation, sole architect walk-backs, and hidden risks.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: UPLOAD WORKSPACE -->
+  <div id="screen-upload" class="screen">
+    <div style="margin-bottom: 2rem;">
+      <h2 style="font-size: 1.75rem; font-weight: 700;">Evaluation Workspace</h2>
+      <p style="color: var(--text-muted);">Upload files or load pre-built demo candidate data for instant analysis.</p>
+    </div>
+
+    <div class="glass-panel" style="padding: 2rem; margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 600;">Reference Scenario Data</h3>
+        <button class="btn-primary" onclick="loadDemoDataAndEvaluate()">⚡ Seed & Evaluate Demo Candidates</button>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">
+        Reference role: <strong>AI Engineer — Agentic Systems (Freight Operations)</strong>.<br>
+        Candidate A (Rohan Malhotra): 3.5 yrs AI experience; claims multi-agent platform; walks back sole ownership of retry logic.<br>
+        Candidate B (Ananya Iyer): Single-agent RAG depth; no LangGraph production experience; high honesty & pre-deploy eval suite.
+      </p>
+    </div>
+
+    <div class="glass-panel" style="padding: 2rem;">
+      <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Upload Custom Files</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        <div>
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">Candidate Name</label>
+          <input type="text" id="custom-cand-name" placeholder="e.g. Alex Morgan" style="width: 100%; padding: 0.75rem; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); color: #fff; border-radius: 8px; font-family: inherit;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">Resume File (.pdf / .txt)</label>
+          <input type="file" id="custom-cand-resume" style="width: 100%; color: var(--text-muted);">
+        </div>
+        <div style="grid-column: span 2;">
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">Interview Transcript File (.pdf / .txt)</label>
+          <input type="file" id="custom-cand-transcript" style="width: 100%; color: var(--text-muted);">
+        </div>
+      </div>
+      <button class="btn-secondary" style="margin-top: 1.5rem;" onclick="uploadCustomCandidate()">Upload & Evaluate</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: PROCESSING PIPELINE -->
+  <div id="screen-pipeline" class="screen">
+    <div style="text-align: center; margin: 3rem 0;">
+      <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Evaluating Candidate Pipeline</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">Running independent agents, debate engine, and 10-step final decision reasoning...</p>
+      
+      <div class="glass-panel" style="max-width: 600px; margin: 0 auto; padding: 2rem; text-align: left;">
+        <div class="pipeline-step" id="step-1" style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+          <span style="width: 24px; height: 24px; border-radius: 50%; background: var(--emerald); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #000;">✓</span>
+          <span>1. Document Parsing & Text Extraction</span>
+        </div>
+        <div class="pipeline-step" id="step-2" style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+          <span style="width: 24px; height: 24px; border-radius: 50%; background: var(--emerald); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #000;">✓</span>
+          <span>2. Candidate Profile & Evidence Store Registry</span>
+        </div>
+        <div class="pipeline-step" id="step-3" style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+          <span style="width: 24px; height: 24px; border-radius: 50%; background: var(--emerald); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #000;">✓</span>
+          <span>3. Four Independent Agent Evaluations (Isolated)</span>
+        </div>
+        <div class="pipeline-step" id="step-4" style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+          <span style="width: 24px; height: 24px; border-radius: 50%; background: var(--emerald); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #000;">✓</span>
+          <span>4. Structured 4-Round Debate Protocol</span>
+        </div>
+        <div class="pipeline-step" id="step-5" style="display: flex; gap: 1rem; align-items: center;">
+          <span style="width: 24px; height: 24px; border-radius: 50%; background: var(--emerald); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #000;">✓</span>
+          <span>5. 10-Step Final Panel Decision Synthesis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: CANDIDATE OVERVIEW -->
+  <div id="screen-overview" class="screen">
+    <div id="candidate-header" style="margin-bottom: 2rem;">
+      <!-- Loaded dynamically -->
+    </div>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+      <div class="glass-panel" style="padding: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Demonstrated Capabilities & Claims</h3>
+        <div id="cand-capabilities" style="margin-bottom: 1.5rem;"></div>
+        
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Identified Technical / Role Gaps</h3>
+        <div id="cand-gaps"></div>
+      </div>
+
+      <div class="glass-panel" style="padding: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Evidence Registry</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Click any Evidence ID to view source document quote:</p>
+        <div id="cand-evidence-list" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: INDEPENDENT AGENTS -->
+  <div id="screen-agents" class="screen">
+    <div style="margin-bottom: 1.5rem;">
+      <h2 style="font-size: 1.75rem; font-weight: 700;">Independent First Impressions</h2>
+      <p style="color: var(--text-muted);">Initial evaluations generated by 4 isolated agent calls with zero cross-agent visibility.</p>
+    </div>
+    <div id="initial-agents-container" class="agent-grid"></div>
+  </div>
+
+  <!-- SCREEN 6: DEBATE ROOM -->
+  <div id="screen-debate" class="screen">
+    <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h2 style="font-size: 1.75rem; font-weight: 700;">Debate Room</h2>
+        <p style="color: var(--text-muted);">4-Round structured cross-examination (Challenge → Response → Revision → Summary)</p>
+      </div>
+      <button class="btn-secondary" onclick="runDebateForCurrentCandidate()">Re-Run Debate</button>
+    </div>
+    <div id="debate-timeline-container" style="max-width: 900px; margin: 0 auto;"></div>
+  </div>
+
+  <!-- SCREEN 7: OPINION REVISIONS -->
+  <div id="screen-revisions" class="screen">
+    <div style="margin-bottom: 1.5rem;">
+      <h2 style="font-size: 1.75rem; font-weight: 700;">Explicit Opinion Revision Tracking</h2>
+      <p style="color: var(--text-muted);">Before & After matrix comparing initial recommendations against post-debate stance revisions.</p>
+    </div>
+    <div class="glass-panel" style="padding: 1.5rem;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Agent Persona</th>
+            <th>Initial Position</th>
+            <th>Post-Debate Position</th>
+            <th>Changed?</th>
+            <th>Revision Trigger & Reason</th>
+          </tr>
+        </thead>
+        <tbody id="opinion-revisions-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SCREEN 8: FINAL DECISION -->
+  <div id="screen-decision" class="screen">
+    <div id="final-decision-header" style="margin-bottom: 2rem;"></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+      <div class="glass-panel" style="padding: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #34d399; margin-bottom: 1rem;">Core Strengths & Alignment</h3>
+        <div id="final-strengths"></div>
+      </div>
+      <div class="glass-panel" style="padding: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #f87171; margin-bottom: 1rem;">Key Risks & Unresolved Disagreements</h3>
+        <div id="final-concerns"></div>
+      </div>
+    </div>
+    <div class="glass-panel" style="padding: 1.5rem;">
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem;">10-Step Multi-Tier Reasoning Sequence</h3>
+      <div id="reasoning-steps-container"></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 9: CANDIDATE COMPARISON -->
+  <div id="screen-compare" class="screen">
+    <div style="margin-bottom: 2rem;">
+      <h2 style="font-size: 1.75rem; font-weight: 700;">Side-by-Side Panel Comparison</h2>
+      <p style="color: var(--text-muted);">Comparing Candidate A (Rohan Malhotra) vs Candidate B (Ananya Iyer)</p>
+    </div>
+    <div id="comparison-container"></div>
+  </div>
+
+  <!-- EVIDENCE EXPLORER MODAL -->
+  <div id="evidence-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeEvidenceModal()">&times;</button>
+      <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1rem;">
+        <span id="modal-ev-id" class="evidence-chip">E-A-001</span>
+        <span id="modal-ev-source" class="badge badge-hire">transcript</span>
+        <span id="modal-ev-section" style="font-size: 0.85rem; color: var(--text-muted);">Technical</span>
+      </div>
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">Source Document Quote</h3>
+      <blockquote id="modal-ev-quote" style="background: rgba(15, 23, 42, 0.9); border-left: 3px solid var(--primary); padding: 1rem; font-style: italic; color: #e2e8f0; margin-bottom: 1rem; border-radius: 4px;">
+        Quote text goes here...
+      </blockquote>
+      <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem;">Supported Claims:</h4>
+      <div id="modal-ev-supports" style="display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

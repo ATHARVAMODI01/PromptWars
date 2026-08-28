@@ -1,0 +1,18 @@
+ANANYA IYER
+Backend & AI Engineer | 3.0 Years Experience
+Email: ananya.i@datapulse.io | Location: Bengaluru, India
+
+SUMMARY:
+Backend engineer with deep expertise in Python microservices, document OCR extraction, and single-agent RAG applications. Strong advocate for engineering rigor, test suites, and operational honesty.
+
+EXPERIENCE:
+Backend & AI Engineer — DataPulse Systems (2022 – Present)
+• Shipped single-agent RAG pipeline using LangChain, Chroma DB, and FastAPI for automated document question-answering.
+• Developed high-throughput PDF/OCR parsing pipelines processing 20,000+ freight invoices daily using PyMuPDF and pdfplumber.
+• Built containerized microservices with Docker and PostgreSQL.
+
+Software Engineering Intern — APIScale Tech (2021 – 2022)
+• Developed REST API endpoints and automated unit testing in Python.
+
+SKILLS:
+Python, FastAPI, Single-Agent RAG, LangChain, Chroma DB, PyMuPDF, pdfplumber, Docker, PostgreSQL, CI/CD, PyTest.

@@ -1,0 +1,14 @@
+INTERVIEW TRANSCRIPT — CANDIDATE A (ROHAN MALHOTRA)
+Role: AI Engineer — Agentic Systems (Freight Operations)
+
+Interviewer: Welcome Rohan. Let's dive straight into your experience with multi-agent systems. Can you tell us about your freight dispatch platform?
+Rohan: Sure! At FreightFlow, I designed a multi-agent system where a Planner agent breaks down manifest routes, an Executor calls external shipping APIs, and a Reviewer verifies cost efficiency before approval.
+
+Interviewer: That's impressive. Who designed and wrote the production retry/escalation engine for handling model failures?
+Rohan: I was the sole architect and lead developer of that entire subsystem from scratch. I built the state machine and retry triggers in Python/FastAPI.
+
+Interviewer: Did anyone else collaborate on the production implementation?
+Rohan: To be fair, I built the initial v1 prototype, but my colleague Priya actually refactored and wrote most of the production v2 logic that currently runs in cluster. But the core concept came from my prototype.
+
+Interviewer: I see. And how about the frontend monitoring dashboard?
+Rohan: I built the React monitoring interface for tracking agent execution states and manual intervention triggers using WebSocket connections to our FastAPI backend.

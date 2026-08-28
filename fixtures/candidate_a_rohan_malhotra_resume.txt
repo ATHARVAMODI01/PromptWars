@@ -1,0 +1,18 @@
+ROHAN MALHOTRA
+Senior AI/Backend Engineer | 3.5 Years Experience
+Email: rohan.m@freightflow.io | Location: Hyderabad, India
+
+SUMMARY:
+Passionate AI & Backend Engineer specializing in multi-agent systems, prompt routing, microservices, and logistics automation. Built and deployed scalable agentic workflows in production.
+
+EXPERIENCE:
+Senior AI/Backend Engineer — FreightFlow Logistics (2023 – Present)
+• Architected and deployed a production multi-agent freight platform using planner/executor/reviewer agent design patterns.
+• Implemented model routing and retry/escalation logic using Python/FastAPI, MongoDB Vector Search, Docker, and Kubernetes.
+• Developed React monitoring dashboard to visualize agent workflow step execution and error states.
+
+Software Engineer — CloudScale Backend Services (2021 – 2023)
+• Built high-concurrency FastAPI microservices and PostgreSQL database schemas.
+
+SKILLS:
+Python, FastAPI, Multi-Agent Systems, Prompt Routing, MongoDB Vector Search, React, Docker, Kubernetes.

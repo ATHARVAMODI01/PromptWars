@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Shorts Blocker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <div class="logo-glow"></div>
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12C19 15.866 15.866 19 12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5C15.866 5 19 8.13401 19 12Z" stroke="url(#logo-grad)" stroke-width="2"/>
+          <path d="M12 8V12L15 14" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="logo-grad" x1="5" y1="5" x2="19" y2="19" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#8B5CF6"/>
+              <stop offset="1" stop-color="#EC4899"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-title">Anti<span class="highlight">Shorts</span></span>
+      </div>
+      <div class="version-tag">v1.0.0</div>
+    </header>
+
+    <!-- Dual Stats Container -->
+    <div class="stats-grid">
+      <!-- Shorts Card -->
+      <div class="stats-card">
+        <div class="stats-bg-gradient gradient-shorts"></div>
+        <div class="stats-label">SHORTS HIDDEN</div>
+        <div class="stats-number" id="stats-counter">0</div>
+      </div>
+      <!-- Ads Card -->
+      <div class="stats-card">
+        <div class="stats-bg-gradient gradient-ads"></div>
+        <div class="stats-label">ADS BYPASSED</div>
+        <div class="stats-number" id="ads-counter">0</div>
+      </div>
+    </div>
+    
+    <div class="status-banner">
+      <span class="pulse-indicator"></span>
+      <span class="status-text">Active & Protecting Feed</span>
+    </div>
+
+    <!-- Toggles Section -->
+    <main class="controls">
+      <div class="section-header">AD SHIELD</div>
+
+      <div class="control-group">
+        <div class="control-label-wrapper">
+          <span class="control-title">Block Video Ads</span>
+          <span class="control-desc">Mute, speed up, and auto-skip ads</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="blockVideoAds" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label-wrapper">
+          <span class="control-title">Block Banner & Display Ads</span>
+          <span class="control-desc">Hide side banners and promotional boxes</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="blockDisplayAds" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="section-header">FEED CLEANER</div>
+
+      <div class="control-group">
+        <div class="control-label-wrapper">
+          <span class="control-title">Auto-Redirect to Player</span>
+          <span class="control-desc">Open Shorts in regular YouTube player</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="redirectShorts" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label-wrapper">
+          <span class="control-title">Hide Navigation Tabs</span>
+          <span class="control-desc">Remove Shorts links from sidebar</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="hideSidebar" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label-wrapper">
+          <span class="control-title">Hide Home Shelves</span>
+          <span class="control-desc">Remove Shorts shelf on Home page</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="hideHome" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label-wrapper">
+          <span class="control-title">Hide Search & Sub Reels</span>
+          <span class="control-desc">Remove Shorts shelves in search & feeds</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="hideSearch" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label-wrapper">
+          <span class="control-title">Hide Individual Grid Items</span>
+          <span class="control-desc">Hide direct Shorts cards in video feeds</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="hideGrid" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </main>
+
+    <!-- Footer Actions -->
+    <footer class="footer">
+      <button class="btn-text" id="btn-reset">Reset Stats</button>
+      <span class="footer-divider">|</span>
+      <a href="https://youtube.com" target="_blank" class="footer-link">Go to YouTube</a>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

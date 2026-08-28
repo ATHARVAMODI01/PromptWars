@@ -1,0 +1,14 @@
+INTERVIEW TRANSCRIPT — CANDIDATE B (ANANYA IYER)
+Role: AI Engineer — Agentic Systems (Freight Operations)
+
+Interviewer: Welcome Ananya. Have you worked with multi-agent frameworks like LangGraph, CrewAI, or AutoGen?
+Ananya: No, to be completely transparent, all my production experience so far is with single-agent RAG using LangChain and Chroma DB. I have experimented with LangGraph locally in side projects, but I haven't deployed multi-agent systems to production yet.
+
+Interviewer: We appreciate your honesty. Tell us about a time an LLM deployment didn't go as expected.
+Ananya: Last year, a prompt modification broke table parsing for 5% of invoices in production. I owned that mistake completely. After fixing the prompt, I built a pre-deploy eval suite of 100 annotated documents and a CI check so no prompt goes to production without passing tests.
+
+Interviewer: That's a great recovery. You mentioned an informal 40% efficiency boost in your resume highlights. Can you elaborate?
+Ananya: That was an informal internal estimate by the operations team lead based on time saved during peak week, not a formal double-blind statistical study. I like to be clear about numbers so expectations are realistic.
+
+Interviewer: How do you approach OCR and document parsing for messy shipping documents?
+Ananya: I designed our OCR extraction pipeline using PyMuPDF and pdfplumber with fallback regex extractors to handle messy bill-of-lading scans reliably.
